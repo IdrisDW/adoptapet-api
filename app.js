@@ -65,8 +65,26 @@ const gods = {
     Zeus: { live: 'Olympus', symbol: 'Thunderbolt' }, 
     Hades : { live : 'Underworld', symbol: 'Cornucopia' } 
   };
-  
-  app.get('/gods/:name', (req, res, next) => {
-    res.send(gods[req.params.name]);
+    app.get('/gods', (req, res, ) => {
+    res.send(gods);
   });
+
+  app.get('/gods/:name', (req, res) => {
+      var name = req.params.name;
+      var god = gods[name];
+    //   var r = [god, name];
+      if (god){
+        res.send(god);
+      }else {
+        res.status(404).send("no encontre el dios");
+      }
+    })
+
+//     const good = gods[req.params.name];
+//     if (good) {
+//       res.send(good);
+//     } else {
+//       res.status(404).send('Good Not Found');
+//     }
+//   });
   
