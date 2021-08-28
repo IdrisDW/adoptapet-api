@@ -50,26 +50,23 @@
 
 // CONSTELACIONES
 
-const express = require('express');
+const express = require("express");
 const app = express();
+ 
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const PORT = 4001;
 app.listen(PORT, () => {
-	console.log('ITS ALIVE!!! Server listening on port ${PORT}')
-})
+  console.log("ITS ALIVE!!! Server listening on port ${PORT}");
+});
 
 const gods = {
-  Zeus: { live: 'Olympus', symbol: 'Thunderbolt' },
-  Hades : { live : 'Underworld', symbol: 'Cornucopia' }
+  Zeus: { live: "Olympus", symbol: "Thunderbolt" },
+  Hades: { live: "Underworld", symbol: "Cornucopia" },
 };
-
-
-
-
 
 const constelaciones = {
   Andromeda: {
@@ -93,52 +90,48 @@ const constelaciones = {
     estr_mas_brillante: "Qolla",
   },
 };
- 
 
-app.get('/constelaciones', (req, res)=>{
-	res.send(constelaciones);
-})
-
-app.get('/constelaciones/:name', (req, res) =>{
-	var name = req.params.name;
-	var constelacion = constelaciones[name]
-	if (constelacion){
-		res.send(constelacion)
-	} else {
-		res.status(418).send("No encontre el nombre")
-	}
-})
-
-
-app.get('/constelaciones/:abreviatura', (req, res) =>{
-	var name = req.params.name;
-	var constelacion = constelaciones[name]
-	if (constelacion){
-		res.send(constelacion)
-	} else {
-		res.status(418).send("No encontre el nombre(abv)")
-	}
-})
-
-app.put('/constelaciones/:name', (req, res)=>{
-	var constelacion = req.params.name;
-	constelaciones[constelacion] = req.body
-	res.send(constelaciones)
-})
-
-app.post('/constelaciones', (req,res)=>{
-	var name = req.query.name;
-	var info = req.body;
-	constelaciones[name] = info;
-	res.status(200).send(constelaciones)
-})
-
-app.delete('/constelaciones/:name', (req,res)=>{
-	var name = req.params.name;
-	delete constelaciones[name]
-	res.send(constelaciones)
-})
-
- 
-
+app.get("/constelaciones", (req, res) => {
+  res.send(constelaciones);
+});
+ // var search = req.params.search;
   
+app.get("/constelaciones/:name", (req, res) => {
+  var name = req.params.name;
+  var constelacion = constelaciones[name];
+  if (constelacion) {
+    res.send(constelacion);
+  } else {
+    res.status(418).send("No encontre el nombre");
+  }
+});
+
+app.get("/constelaciones/:search/:s", (req, res) => {
+  
+  for (const item in constelaciones) {
+    if (constelaciones[item]["search"] === req.params.sv) {
+      res.send(constelaciones[item]);
+    } else {
+      res.status(418).send("No encontre el nombre(abv)");
+    }
+  }
+});
+
+app.put("/constelaciones/:name", (req, res) => {
+  var constelacion = req.params.name;
+  constelaciones[constelacion] = req.body;
+  res.send(constelaciones);
+});
+
+app.post("/constelaciones", (req, res) => {
+  var name = req.query.name;
+  var info = req.body;
+  constelaciones[name] = info;
+  res.status(200).send(constelaciones);
+});
+
+app.delete("/constelaciones/:name", (req, res) => {
+  var name = req.params.name;
+  delete constelaciones[name];
+  res.send(constelaciones);
+});
