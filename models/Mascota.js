@@ -18,3 +18,5 @@ class Mascota{
 	}
 	
 }
+
+module.exports = Mascota;
