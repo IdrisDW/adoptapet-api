@@ -1,19 +1,34 @@
+// const router = require('express').Router();
+
+// const {
+// crearUsuario,
+// obtenerUsuarios,
+// modificarUsuario,
+// eliminarUsuario
+
+// } =  require ('../controllers/usuarios');
+
+// router.get('/' , obtenerUsuarios);
+
+// router.post('/', crearUsuario);
+
+// router.put('/:id', modificarUsuario);
+
+// router.delete('/:id' , eliminarUsuario);
+
+// module.exports = router;
+
 const router = require('express').Router();
-
 const {
-crearUsuario,
-obtenerUsuarios,
-modificarUsuario,
-eliminarUsuario
+	crearUsuario,
+	obtenerUsuarios,
+	modificarUsuario,
+	eliminarUsuario
+} = require('../controllers/usuarios');
 
-} =  require ('../controllers/usuarios');
-
-router.get('/' , obtenerUsuarios);
-
+router.get('/', obtenerUsuarios);
 router.post('/', crearUsuario);
-
 router.put('/:id', modificarUsuario);
-
-router.delete('/:id' , eliminarUsuario);
+router.delete('/:id', eliminarUsuario);
 
 module.exports = router;
